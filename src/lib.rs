@@ -1,6 +1,11 @@
+//! Macro to test that two values are approximately equal. It checks that the relative difference between
+//! the two values is less than some epsilon value.
+
 #[macro_use]
 pub mod approx_eq {
     #[macro_export]
+    /// Epsilon takes a default value of 1e-6.
+    /// It is also possible to specify the error level to use.
     macro_rules! assert_approx_eq {
         ($x: expr, $y: expr) => {
             let eps = 1e-6;

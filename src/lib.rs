@@ -11,12 +11,14 @@ pub mod approx_eq {
             let eps = 1e-6;
             let (x, y): (f64, f64) = ($x, $y);
             assert!(&x.signum() == &y.signum());
+            let (x, y): (f64, f64) = (x.abs(), y.abs());
             assert!((&x - &y).abs() / [x, y].iter().cloned().fold(0. / 0., f64::min) < eps);
         };
         ($x: expr, $y: expr, $e: expr) => {
             let (x, y): (f64, f64) = ($x, $y);
             assert!(&x.signum() == &y.signum());
-            assert!((&x - &y).abs() / [x, y].iter().cloned().fold(0. / 0., f64::min) < $e)
+            let (x, y): (f64, f64) = (x.abs(), y.abs());
+            assert!((&x - &y).abs() / [x, y].iter().cloned().fold(0. / 0., f64::min) < $e);
         };
     }
 }
@@ -39,6 +41,7 @@ fn test_invalid() {
 }
 
 #[test]
+#[should_panic(expected = "assertion failed")]
 fn test_sign() {
     assert_approx_eq!(1., -1.);
 }

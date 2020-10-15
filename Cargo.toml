@@ -3,7 +3,12 @@ name = "approx_eq"
 version = "0.1.0"
 authors = ["Jeff Shen <jshen2014@hotmail.com>"]
 edition = "2018"
+license = "MIT OR Apache-2.0"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+readme = "README.md"
+description = "A macro for comparing equality of two values up to an arbitrary error in the *relative* difference"
+repository = "https://github.com/al-jshen/approx_eq"
+
+keywords = ["testing", "error", "approximate", "float", "comparison"]
 
 [dependencies]

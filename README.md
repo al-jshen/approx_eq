@@ -1,6 +1,8 @@
 # approx_eq
 
 [![Build Status](https://travis-ci.org/al-jshen/approx_eq.svg?branch=master)](https://travis-ci.org/al-jshen/approx_eq)
+[![Crates.io](https://img.shields.io/crates/v/approx_eq)](https://crates.io/crates/approx_eq)
+[![Documentation](https://docs.rs/approx_eq/badge.svg)](https://docs.rs/approx_eq)
 
 This crate provides a macro to check whether two numbers are approximately equal. It does so by checking that the relative difference between the two numbers is less than some upper limit. 
 
@@ -9,7 +11,7 @@ To use this in your Rust program, add the following to your `Cargo.toml` file:
 ```rust
 // Cargo.toml
 [dependencies]
-approx_eq = { git = "https://github.com/al-jshen/approx_eq" }
+approx_eq = "0.1.0"
 ```
 
 Using this macro is easy!

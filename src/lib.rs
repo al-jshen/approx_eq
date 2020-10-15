@@ -22,13 +22,13 @@ pub mod approx_eq {
             let (x, y): (f64, f64) = ($x, $y);
             assert!(&x.signum() == &y.signum());
             let (x, y): (f64, f64) = (x.abs(), y.abs());
-            assert!((&x - &y).abs() / [x, y].iter().cloned().fold(0. / 0., f64::min) < eps);
+            assert!((&x - &y).abs() / [x, y].iter().cloned().fold(f64::NAN, f64::min) < eps);
         };
         ($x: expr, $y: expr, $e: expr) => {
             let (x, y): (f64, f64) = ($x, $y);
             assert!(&x.signum() == &y.signum());
             let (x, y): (f64, f64) = (x.abs(), y.abs());
-            assert!((&x - &y).abs() / [x, y].iter().cloned().fold(0. / 0., f64::min) < $e);
+            assert!((&x - &y).abs() / [x, y].iter().cloned().fold(f64::NAN, f64::min) < $e);
         };
     }
 }

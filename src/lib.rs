@@ -1,5 +1,15 @@
-//! Macro to test that two values are approximately equal. It checks that the relative difference between
-//! the two values is less than some epsilon value.
+/// Macro to test that two values are approximately equal. It checks that the relative difference between
+/// the two values is less than some epsilon value.
+///
+/// ```ignore
+/// use approx_eq::assert_approx_eq;
+/// fn main() {
+///   assert_approx_eq!(1., 0.99999999999); // should pass
+///   assert_approx_eq!(1., 0.99999999999, 1e-5); // should pass
+///   assert_approx_eq!(1., 0.99999999999, 1e-20); // should fail
+///   assert_approx_eq!(1., 2.) // should fail
+/// }
+/// ```
 
 #[macro_use]
 pub mod approx_eq {

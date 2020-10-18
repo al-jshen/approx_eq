@@ -7,7 +7,8 @@
 ///   assert_approx_eq!(1., 0.99999999999); // should pass
 ///   assert_approx_eq!(1., 0.99999999999, 1e-5); // should pass
 ///   assert_approx_eq!(1., 0.99999999999, 1e-20); // should fail
-///   assert_approx_eq!(1., 2.) // should fail
+///   assert_approx_eq!(0., 0.); // should pass
+///   assert_approx_eq!(1., 2.); // should fail
 /// }
 /// ```
 
@@ -20,15 +21,23 @@ pub mod approx_eq {
         ($x: expr, $y: expr) => {
             let eps = 1e-6;
             let (x, y): (f64, f64) = ($x, $y);
-            assert!(&x.signum() == &y.signum());
-            let (x, y): (f64, f64) = (x.abs(), y.abs());
-            assert!((&x - &y).abs() / [x, y].iter().cloned().fold(f64::NAN, f64::min) < eps);
+            if (x == 0. || y == 0.) {
+                assert_eq!(x, y);
+            } else {
+                assert!(&x.signum() == &y.signum());
+                let (x, y): (f64, f64) = (x.abs(), y.abs());
+                assert!((&x - &y).abs() / [x, y].iter().cloned().fold(f64::NAN, f64::min) < eps);
+            }
         };
         ($x: expr, $y: expr, $e: expr) => {
             let (x, y): (f64, f64) = ($x, $y);
-            assert!(&x.signum() == &y.signum());
-            let (x, y): (f64, f64) = (x.abs(), y.abs());
-            assert!((&x - &y).abs() / [x, y].iter().cloned().fold(f64::NAN, f64::min) < $e);
+            if (x == 0. || y == 0.) {
+                assert_eq!(x, y);
+            } else {
+                assert!(&x.signum() == &y.signum());
+                let (x, y): (f64, f64) = (x.abs(), y.abs());
+                assert!((&x - &y).abs() / [x, y].iter().cloned().fold(f64::NAN, f64::min) < $e);
+            }
         };
     }
 }
@@ -48,6 +57,11 @@ fn test_witheps() {
 #[should_panic(expected = "assertion failed")]
 fn test_invalid() {
     assert_approx_eq!(1.0000000001, 1., 1e-10);
+}
+
+#[test]
+fn test_zero() {
+    assert_approx_eq!(0., 0.);
 }
 
 #[test]

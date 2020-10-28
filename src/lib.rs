@@ -56,35 +56,40 @@ pub mod approx_eq {
     }
 }
 
-#[test]
-fn test_noeps() {
-    assert_approx_eq!(1., 1.);
-    assert_approx_eq!(1., 1.000001);
-}
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-#[test]
-fn test_witheps() {
-    assert_approx_eq!(1.0000000001, 1., 1e-5);
-}
+    #[test]
+    fn test_noeps() {
+        assert_approx_eq!(1., 1.);
+        assert_approx_eq!(1., 1.000001);
+    }
 
-#[test]
-fn test_nearzero() {
-    assert_approx_eq!(0., -0.0000000000245);
-}
+    #[test]
+    fn test_witheps() {
+        assert_approx_eq!(1.0000000001, 1., 1e-5);
+    }
 
-#[test]
-fn test_zero() {
-    assert_approx_eq!(0., 0.);
-}
+    #[test]
+    fn test_nearzero() {
+        assert_approx_eq!(0., -0.0000000000245);
+    }
 
-#[test]
-#[should_panic(expected = "assertion failed")]
-fn test_invalid() {
-    assert_approx_eq!(1.0000000001, 1., 1e-10);
-}
+    #[test]
+    fn test_zero() {
+        assert_approx_eq!(0., 0.);
+    }
 
-#[test]
-#[should_panic(expected = "assertion failed")]
-fn test_sign() {
-    assert_approx_eq!(1., -1.);
+    #[test]
+    #[should_panic]
+    fn test_invalid() {
+        assert_approx_eq!(1.0000000001, 1., 1e-10);
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_sign() {
+        assert_approx_eq!(1., -1.);
+    }
 }

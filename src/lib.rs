@@ -22,25 +22,35 @@ pub mod approx_eq {
             let eps = 1e-6;
             let (x, y): (f64, f64) = ($x, $y);
             if x == 0. {
-                assert!(y.abs() < eps);
+                assert!(y.abs() < eps, "x = {}, y = {}", x, y);
             } else if y == 0. {
-                assert!(x.abs() < eps);
+                assert!(x.abs() < eps, "x = {}, y = {}", x, y);
             } else {
-                assert!(&x.signum() == &y.signum());
+                assert!(&x.signum() == &y.signum(), "x = {}, y = {}", x, y);
                 let (x, y): (f64, f64) = (x.abs(), y.abs());
-                assert!((&x - &y).abs() / [x, y].iter().cloned().fold(f64::NAN, f64::min) < eps);
+                assert!(
+                    (&x - &y).abs() / [x, y].iter().cloned().fold(f64::NAN, f64::min) < eps,
+                    "x = {}, y = {}",
+                    x,
+                    y
+                );
             }
         };
         ($x: expr, $y: expr, $e: expr) => {
             let (x, y): (f64, f64) = ($x, $y);
             if x == 0. {
-                assert!(y.abs() < $e);
+                assert!(y.abs() < $e, "x = {}, y = {}", x, y);
             } else if y == 0. {
-                assert!(x.abs() < $e);
+                assert!(x.abs() < $e, "x = {}, y = {}", x, y);
             } else {
-                assert!(&x.signum() == &y.signum());
+                assert!(&x.signum() == &y.signum(), "x = {}, y = {}", x, y);
                 let (x, y): (f64, f64) = (x.abs(), y.abs());
-                assert!((&x - &y).abs() / [x, y].iter().cloned().fold(f64::NAN, f64::min) < $e);
+                assert!(
+                    (&x - &y).abs() / [x, y].iter().cloned().fold(f64::NAN, f64::min) < $e,
+                    "x = {}, y = {}",
+                    x,
+                    y
+                );
             }
         };
     }

@@ -11,7 +11,6 @@
 ///   assert_approx_eq!(1., 2.); // should fail
 /// }
 /// ```
-
 #[macro_use]
 pub mod approx_eq {
     #[macro_export]
@@ -53,6 +52,18 @@ pub mod approx_eq {
                 );
             }
         };
+    }
+}
+
+/// Function to find the relative difference between two values.
+pub fn rel_diff(x: f64, y: f64) -> f64 {
+    if x == 0. {
+        return y.abs();
+    } else if y == 0. {
+        return x.abs();
+    } else {
+        let (ax, ay) = (x.abs(), y.abs());
+        return (&ax - &ay).abs() / [ax, ay].iter().cloned().fold(f64::NAN, f64::min);
     }
 }
 
